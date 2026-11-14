@@ -1,5 +1,5 @@
 import { openPageLink } from './page-navigation';
-import { Fragment, type ReactNode } from 'react';
+import { Children, Fragment, useState, type ReactElement, type ReactNode } from 'react';
 import { PhoneOff } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import type { AssistantMessage, Message } from '@ag-ui/core';
@@ -33,6 +33,48 @@ function Receipt({ call }: { call: CallReceipt }) {
     </div>
   );
 }
+function CodeBlock({ children }: { children?: ReactNode }) {
+  const [copied, setCopied] = useState(false);
+  const codeChild = Children.toArray(children)[0] as ReactElement<{
+    className?: string;
+    children?: ReactNode;
+  }>;
+  const className = codeChild?.props?.className ?? '';
+  const language =
+    (typeof className === 'string' &&
+      className.match(/language-([\w-]+)/)?.[1]) ||
+    'code';
+  const text = Children.toArray(codeChild?.props?.children)
+    .map((child) => (typeof child === 'string' ? child : ''))
+    .join('');
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch {
+      const area = document.createElement('textarea');
+      area.value = text;
+      document.body.appendChild(area);
+      area.select();
+      document.execCommand('copy');
+      document.body.removeChild(area);
+    }
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 2000);
+  };
+  return (
+    <div className="code-block">
+      <div className="code-block-header">
+        <span>{language}</span>
+        <button type="button" className="code-copy-btn" onClick={copy}>
+          {copied ? 'Copied!' : 'Copy'}
+        </button>
+      </div>
+      <pre>
+        <code className={className}>{text}</code>
+      </pre>
+    </div>
+  );
+}
 export function ChatTranscript({
   messages,
   calls,
@@ -63,6 +105,7 @@ export function ChatTranscript({
               )}
               <ReactMarkdown
                 components={{
+                  pre: CodeBlock,
                   img: ({ alt }) => <span>{alt}</span>,
                   a: ({ href, children }) => (
                     <a
