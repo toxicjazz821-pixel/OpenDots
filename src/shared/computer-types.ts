@@ -41,7 +41,11 @@ const path = z
       !p.split('/').some((s) => s === '..'),
     'Use a relative workspace path without traversal.',
   );
-const empty = z.object({}).strict();
+const empty = z  
+  .object({
+    reason: z.string().optional().describe('Optional note; ignored.'),
+  })
+  .strict();
 const ref = {
   ref: z.string().min(1).max(100),
   snapshotId: z.number().int().nonnegative(),
