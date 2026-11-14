@@ -2233,6 +2233,51 @@ h3 {
   padding: 13px;
   border-radius: 8px;
 }
+.chat-bubble .code-block {
+  margin: 12px 0;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #1c1e26;
+  border: 1px solid #2e3140;
+}
+.chat-bubble .code-block-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 7px 12px;
+  background: #262933;
+  color: #9aa0b0;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.chat-bubble .code-copy-btn {
+  border: 1px solid #3a3e4d;
+  background: #313543;
+  color: #e8eaf0;
+  border-radius: 7px;
+  padding: 4px 11px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.4;
+  flex-shrink: 0;
+}
+.chat-bubble .code-copy-btn:active {
+  background: #3d4252;
+}
+.chat-bubble .code-block pre {
+  margin: 0;
+  background: transparent;
+  padding: 12px 14px;
+  border-radius: 0;
+  color: #e8eaf0;
+  font-size: 12px;
+  line-height: 1.7;
+}
+.chat-bubble .code-block pre code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
 .chat-welcome {
   text-align: center;
   margin: 60px auto;
