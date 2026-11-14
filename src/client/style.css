@@ -2233,6 +2233,7 @@ h3 {
   padding: 13px;
   border-radius: 8px;
 }
+/* theme: fixed .code-block */
 .chat-bubble .code-block {
   margin: 12px 0;
   border-radius: 10px;
@@ -2278,6 +2279,8 @@ h3 {
 .chat-bubble .code-block pre code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
+/* theme: end */
+
 .chat-welcome {
   text-align: center;
   margin: 60px auto;
