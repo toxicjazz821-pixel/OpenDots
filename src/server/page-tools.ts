@@ -57,7 +57,12 @@ export function pageTools(access: ReturnType<typeof pageAccess>) {
     defineTool({
       name: 'list_authorized_spaces',
       description: 'List Spaces this Dot has permission to use.',
-      parameters: z.object({}),
+      parameters: z.object({
+        reason: z
+          .string()
+          .optional()
+          .describe('Optional reason for listing Spaces.'),
+      }),
       execute: async () => access.spaces(),
     }),
     defineTool({
